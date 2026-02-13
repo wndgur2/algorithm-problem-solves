@@ -9,9 +9,6 @@ const sum = amounts.reduce((p,c)=>p+c, 0)
 // K개를 뽑았는데 모두 같은 색일 확률
 // = 각 색을 모두 뽑을 확률을 더한 것
 
-// 1에서 각 색을 1~min(k-1, n)개 뽑을 확률을 뺀 것?
-// nCk / 0~min(k, n)
-
 let answer = 0
 
 for(let c=0; c<N; c++){
@@ -29,8 +26,3 @@ for(let c=0; c<N; c++){
 }
 
 console.log(answer.toFixed(12))
-
-function factorial(n){
-  if(n<=1) return 1
-  return n*factorial(n-1)
-}
