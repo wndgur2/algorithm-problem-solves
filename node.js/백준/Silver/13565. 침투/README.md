@@ -4,7 +4,7 @@
 
 ### 성능 요약
 
-메모리: 33624 KB, 시간: 208 ms
+메모리: 33592 KB, 시간: 208 ms
 
 ### 분류
 
@@ -12,7 +12,7 @@
 
 ### 제출 일자
 
-2026년 2월 17일 18:15:39
+2026년 2월 17일 18:20:06
 
 ### 문제 설명
 
@@ -23,8 +23,8 @@
 <table class="table" style="width:100%">
 	<tbody>
 		<tr>
-			<td style="text-align:center"><img alt="" src="" style="height:163px; width:129px"></td>
-			<td style="text-align:center"><img alt="" src="" style="height:157px; width:127px"></td>
+			<td style="text-align:center"><img alt="" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/13565/1.png" style="height:163px; width:129px"></td>
+			<td style="text-align:center"><img alt="" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/13565/2.png" style="height:157px; width:127px"></td>
 		</tr>
 		<tr>
 			<td style="text-align:center">(a) The current percolates.</td>

@@ -1,6 +1,5 @@
 const fs = require('fs')
 const lines = fs.readFileSync('/dev/stdin').toString().trim().split('\n')
-// const lines = fs.readFileSync('inputs').toString().trim().split('\n')
 const [M, N] = lines.shift().split(' ').map(Number)
 const board = lines.map(s => Array.from(s).map(v=>Boolean(Number(v))))
 
@@ -15,10 +14,9 @@ console.log(flag?'YES':'NO')
 
 
 function dfs(y, x){
-  if(board[y][x]) return
   if(y===M-1) return flag = true
   if(flag) return
-  if(visited[y][x]) return
+  if(board[y][x] || visited[y][x]) return
   visited[y][x] = true
 
   for(let di=0; di<4; di++){
@@ -26,8 +24,7 @@ function dfs(y, x){
     const ny = y + dy
     const nx = x + dx
     if(ny<0 || nx<0 || ny>=M || nx>=N) continue
-    if(visited[ny][nx]) continue
-    if(board[ny][nx]) continue
+    if(visited[ny][nx] || board[ny][nx]) continue
     dfs(ny, nx)
   }
 }
