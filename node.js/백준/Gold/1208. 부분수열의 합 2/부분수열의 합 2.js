@@ -1,43 +1,35 @@
 const fs = require('fs')
-// const lines = fs.readFileSync('inputs').toString().trim().split('\n')
 const lines = fs.readFileSync('/dev/stdin').toString().trim().split('\n')
 const [N, S] = lines[0].split(' ').map(Number)
 const nums = lines[1].split(' ').map(Number)
-const combi1 = {0:1}
-const combi2 = {0:1}
 
+const mid = Math.floor(nums.length/2)
+const combi = {0:1}
 
-for(let i=0; i<Number.parseInt(N/2); i++){
-  const temp = {}
-  for (const key in combi1){
-    const nKey = Number(key)+nums[i]
-    temp[nKey] = temp[nKey]? temp[nKey]+combi1[key]:combi1[key] 
-  }
-  for(const key in temp){
-    combi1[key] = combi1[key]? combi1[key]+temp[key]:temp[key]
-  }
-}
+let ans = S===0?-1:0
 
-for(let i=0; i<Math.ceil(N/2); i++){
-  const idx = Number.parseInt(N/2) + i
-  const temp = {}
-  for (const key in combi2){
-    const nKey = Number(key)+nums[idx]
-    temp[nKey] = temp[nKey]? temp[nKey]+combi2[key]:combi2[key] 
-  }
-  for(const key in temp){
-    combi2[key] = combi2[key]? combi2[key]+temp[key]:temp[key]
-  }
-}
+dfs(0, 0, mid)
+dfs2(mid, 0, N)
 
-let ans = 0
-
-for(const key in combi1){
-  const key2 = S-Number(key)
-  if(combi2[key2]){
-    ans += combi2[key2] * combi1[key]
-    if(key==0 && key2==0) ans--
-  }
-}
-
+ans += combi[S]?combi[S]:0
 console.log(ans)
+
+function dfs(idx, prevSum, maxIdx){
+  if(idx===maxIdx) return
+  const newSum = prevSum + nums[idx]
+  combi[newSum] = combi[newSum]? combi[newSum]+1: 1
+
+  dfs(idx+1, newSum, maxIdx)
+  dfs(idx+1, prevSum, maxIdx)
+}
+
+function dfs2(idx, prevSum, maxIdx){
+  if(idx===maxIdx) return
+  const newSum = prevSum + nums[idx]
+  if(combi[S-newSum]){
+    ans += combi[S-newSum]
+  }
+
+  dfs2(idx+1, newSum, maxIdx)
+  dfs2(idx+1, prevSum, maxIdx)
+}
