@@ -11,34 +11,41 @@ function solve(){
     return
   }
   
-  const idxs = Array(4).fill(0).map(v=>[])
+  const idxs = Array(3).fill(0).map(v=>[])
   const sums = Array(n).fill(0)
-  sums[0] = seq[0]
+  sums[0] = seq[0]  
   for(let i=0; i<n; i++){
     if(i>0)
       sums[i] = sums[i-1] + seq[i]
     if(s===0 && sums[i]===0){
       idxs[0].push(i)
       idxs[1].push(i)
+
+      if(((sum-sums[i])!==s) || (i==n-1)) continue
       idxs[2].push(i)
-      idxs[3].push(i)
     } else if(sums[i]%s==0 && Math.floor(sums[i]/s)>0){
-      idxs[Math.floor(sums[i]/s)-1].push(i)
+      const mod = Math.floor(sums[i]/s)-1
+      if((mod>2) || (mod===2 && (sum-sums[i])!==s)) continue
+      idxs[mod].push(i)
     }
   }
 
   let ans = 0
   
-  for(let i=0; i<idxs[0].length; i++){
-    ans += count(1, idxs[0][i])
-  }
+  ans += count(0, -1)
 
   function count(depth, prevIdx){
-    if(depth===3) return prevIdx<n-1? 1:0
+    const l = idxs[depth].length
+    const nextIdxIdx = bs(idxs[depth], prevIdx)
     
+    if(nextIdxIdx>l-1) return 0
+    if(depth===2){
+      const res = l - nextIdxIdx
+      return res
+    }
+
     let res = 0
-    const nextIdx = bs(idxs[depth], prevIdx)
-    for(let i=nextIdx; i<idxs[depth].length; i++){
+    for(let i=nextIdxIdx; i<l; i++){
       res += count(depth+1, idxs[depth][i])
     }
 
