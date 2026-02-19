@@ -30,26 +30,19 @@ function solve(){
     }
   }
 
+  const posFrom1 = Array(idxs[1].length).fill(0)
+  for(let i=idxs[1].length-1; i>=0; i--){
+    const nii = bs(idxs[2], idxs[1][i])
+    if(nii>=idxs[2].length) continue
+    posFrom1[i] = idxs[2].length - nii + (i<idxs[1].length-1?posFrom1[i+1]:0)
+  }
+
   let ans = 0
   
-  ans += count(0, -1)
-
-  function count(depth, prevIdx){
-    const l = idxs[depth].length
-    const nextIdxIdx = bs(idxs[depth], prevIdx)
-    
-    if(nextIdxIdx>l-1) return 0
-    if(depth===2){
-      const res = l - nextIdxIdx
-      return res
-    }
-
-    let res = 0
-    for(let i=nextIdxIdx; i<l; i++){
-      res += count(depth+1, idxs[depth][i])
-    }
-
-    return res
+  for(let i=0; i<idxs[0].length; i++){
+    const ni = bs(idxs[1], idxs[0][i])
+    if (ni>=idxs[1].length) continue
+    ans += posFrom1[ni]
   }
 
   console.log(ans)
