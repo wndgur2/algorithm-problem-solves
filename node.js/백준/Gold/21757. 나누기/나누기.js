@@ -22,7 +22,7 @@ function solve(){
       idxs[1].push(i)
       idxs[2].push(i)
       idxs[3].push(i)
-    } else if(sums[i]%s==0){
+    } else if(sums[i]%s==0 && Math.floor(sums[i]/s)>0){
       idxs[Math.floor(sums[i]/s)-1].push(i)
     }
   }
@@ -34,12 +34,12 @@ function solve(){
   }
 
   function count(depth, prevIdx){
-    if(depth===4) return 1
+    if(depth===3) return prevIdx<n-1? 1:0
     
     let res = 0
-    const startIdx = bs(idxs[depth], prevIdx)
-    for(let i=startIdx; i<idxs[depth].length; i++){
-      res += count(depth+1, i)
+    const nextIdx = bs(idxs[depth], prevIdx)
+    for(let i=nextIdx; i<idxs[depth].length; i++){
+      res += count(depth+1, idxs[depth][i])
     }
 
     return res
