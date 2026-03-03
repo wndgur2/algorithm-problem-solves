@@ -5,8 +5,9 @@ const N = Number(lines[0])
 const cis = lines[1].split(' ').map(Number)
 const is = lines[2].split(' ').map(Number)
 
-for(let i=0; i<N; i++)
+for(let i=0; i<N; i++){
   is[i] -= cis[i]
+}
 
 let res = 0
 
@@ -22,7 +23,6 @@ for(let i=0; i<N; ){
       if(Math.abs(is[j]) < Math.abs(mv))
         mv = is[j]
     }
-    
   }
 
   // i~mvi까지 mv만큼 indent
