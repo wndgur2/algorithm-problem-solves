@@ -13,8 +13,6 @@ let res = -1
 
 while(qi<q.length){
   const [i, count] = q[qi++]
-  if(visited[i]) continue
-  visited[i] = true
   if(i==b) {
     res = count
     break
@@ -24,6 +22,7 @@ while(qi<q.length){
   for(let j=si; j<n+1; j+=hop){
     if(visited[j]) continue
     q.push([j, count+1])
+    visited[j] = true
   }
 }
 
