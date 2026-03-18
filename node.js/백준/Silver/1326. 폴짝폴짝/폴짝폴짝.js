@@ -13,11 +13,11 @@ let res = -1
 
 while(qi<q.length){
   const [i, count] = q[qi++]
-  if(i==b) {
-    res = count
+  const hop = numbers[i]
+  if (Math.abs(b - i) % hop == 0){
+    res = count+1
     break
   }
-  const hop = numbers[i]
   const si = i-(Math.floor(i/hop)*hop)
   for(let j=si; j<n+1; j+=hop){
     if(visited[j]) continue
