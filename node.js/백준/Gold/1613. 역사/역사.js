@@ -2,9 +2,7 @@ let fs = require('fs');
 let [[N, M], ...lines] = fs.readFileSync('/dev/stdin').toString().trim().split('\n').map(l=>l.split(' ').map(Number));
 // let [[N, M], ...lines] = fs.readFileSync('inputs').toString().trim().split('\n').map(l=>l.split(' ').map(Number));
 
-// 그래프
-// if a->b -1, if b->a 1 else 0
-// 400(n) * 50000(s) = 2000만
+// 그래프, dfs
 
 class Node{
   incomings = 0
@@ -15,7 +13,7 @@ class Node{
   }
 } 
 
-// 그래프, 그룹 형성 (group 갱신)
+// 그래프 형성
 const nodes = Array(N).fill(0).map((v,i)=>new Node(i))
 
 for(let li=0; li<M; li++){
@@ -24,23 +22,23 @@ for(let li=0; li<M; li++){
   nodes[b].incomings++
 }
 
-// 위상정렬 dfs <= 50000?
+// dfs,  <= 400 * 400?
+const starters = []
 
-const q = []
 for(let i=0; i<N; i++){
   const node = nodes[i]
   if(node.incomings==0){
-    q.push(node)
+    starters.push(node)
   }
 }
 
-for(let i=0; i<q.length; i++){
-  dfs(q[i])
+for(let i=0; i<starters.length; i++){
+  dfs(starters[i])
 }
 
 function dfs(node){
   for(let next of node.afters){
-    if(node.afterSet.has(next.i)) continue
+    if(node.afterSet.has(next.i)) continue // visited
     node.afterSet.add(next.i)
 
     const ns = dfs(next)
