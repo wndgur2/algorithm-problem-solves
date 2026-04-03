@@ -3,10 +3,7 @@ let [[, H], shelters] = fs.readFileSync('/dev/stdin').toString().trim().split('\
 // let [[, H], shelters] = fs.readFileSync('inputs').toString().trim().split('\n').map(line=>line.split(' ').map(Number))
 
 // 거리 -> 샘터 2중 for문
-
 const facility = new Set()
-// s: shelter
-// h: house
 
 for(let shelter of shelters){
   facility.add(shelter)
@@ -17,14 +14,14 @@ let distance = 1
 while(H>0){
   const newShelters = []
   for(let shelter of shelters){ // 10만 --> 사이가 다 차있으면 압축
-    // left
     const l = shelter-distance
     const r = shelter+distance
     if(!(facility.has(l) && facility.has(r))){
       newShelters.push(shelter)
     } else
       continue
-
+      
+    // left
     if(!facility.has(l)){
       facility.add(l)
       H--
